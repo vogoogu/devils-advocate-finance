@@ -41,7 +41,12 @@ def chat(messages, model, api_key, temperature=0.3, max_tokens=3500, timeout=120
                 msg = err
         except ValueError:
             pass
-        raise OpenRouterError(f"OpenRouter error {resp.status_code}: {str(msg)[:300]}")
+        hint = ""
+        if resp.status_code == 401:
+            hint = " (OpenRouter did not accept the API key: paste a fresh key, check Secrets, and check your credits.)"
+        elif resp.status_code in (400, 404):
+            hint = " (Check the model name at openrouter.ai/models.)"
+        raise OpenRouterError(f"OpenRouter error {resp.status_code}: {str(msg)[:300]}{hint}")
 
     try:
         content = resp.json()["choices"][0]["message"]["content"]

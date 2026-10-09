@@ -116,6 +116,9 @@ def sidebar():
         if choice == config.CUSTOM_MODEL_LABEL:
             st.text_input("Model name on OpenRouter", key="custom_model", placeholder="provider/model-name")
 
+        _k = config.get_api_key()
+        st.caption(f"Key detected: {_k[:9]}... ({len(_k)} characters)" if _k else "No key detected")
+
         st.subheader("Progress")
         for n, name in STEP_NAMES.items():
             icon = "✅" if n < st.session_state.step else ("👉" if n == st.session_state.step else "⚪")

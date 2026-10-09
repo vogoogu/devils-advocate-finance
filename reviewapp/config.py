@@ -1,5 +1,6 @@
 """Settings and small helpers shared across the app."""
 import os
+import re
 from pathlib import Path
 
 import streamlit as st
@@ -12,8 +13,9 @@ APP_TITLE = "Before we invest: decision review tool"
 
 # Model slugs are OpenRouter slugs. They can be edited in the sidebar,
 # because model names on OpenRouter change from time to time.
-DEFAULT_MODEL = "anthropic/claude-sonnet-4.5"
+DEFAULT_MODEL = "anthropic/claude-sonnet-5.5"
 MODEL_SUGGESTIONS = [
+    "anthropic/claude-sonnet-5.5",
     "anthropic/claude-sonnet-4.5",
     "openai/gpt-4o",
     "openai/gpt-4o-mini",
@@ -45,12 +47,17 @@ def secret_key_available() -> bool:
 
 
 def get_api_key() -> str:
-    return (
+    key = (
         _secret_key()
         or os.environ.get("OPENROUTER_API_KEY")
         or st.session_state.get("api_key_input", "")
         or ""
-    ).strip()
+    )
+    # remove spaces, line breaks, hidden characters and quotes that sneak in when pasting
+    key = re.sub(r"[\s\u200b\u200c\u200d\ufeff\"']", "", str(key))
+    if key.lower().startswith("bearer"):
+        key = key[6:]
+    return key
 
 
 def get_model() -> str:
