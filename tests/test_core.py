@@ -5,8 +5,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src import files, gate, openrouter, record, reviewer
-from src.util import make_view
+from reviewapp import files, gate, openrouter, record, reviewer
+from reviewapp.util import make_view
 
 SAMPLE = (Path(__file__).resolve().parent.parent / "data" / "asterflow_sample.md").read_text(encoding="utf-8")
 

@@ -29,7 +29,7 @@ overly cautious reasoning, use only the supplied evidence, let the analyst defen
 - Round 1 input: system prompt + full file + analyst view. Follow-up input: same + round history + analyst answers + current view.
 - File text is wrapped as data; the prompt tells the model to ignore instructions inside it.
 
-## 5. Gate rules (`src/gate.py`)
+## 5. Gate rules (`reviewapp/gate.py`)
 Another round is suggested if any is true: recommendation changed; confidence moved > 15 points; a "Defend" answer has no evidence refs or is very short;
 a "Revise/Concede" has no evidence refs; the AI says another round is useful. Hard stop at 3 AI rounds; remaining issues go into the record.
 

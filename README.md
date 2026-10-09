@@ -16,7 +16,7 @@ defends or revises, and a **review record** is saved for the CEO. The CEO keeps 
 5. **Final record**: reasons, confidence before/after, unresolved uncertainties, conditions that would change the decision,
    amounts or terms with their basis, revision log, and a field for the CEO's decision. Download as Markdown or JSON.
 
-The reviewer instructions are in `src/prompts.py` and are shown in the app (sidebar, "Reviewer instructions").
+The reviewer instructions are in `reviewapp/prompts.py` and are shown in the app (sidebar, "Reviewer instructions").
 
 ## Run locally
 ```bash
@@ -42,16 +42,17 @@ pytest -q
 ## Folder
 ```
 app.py                    entry point (page + step router)
-src/config.py             settings, models, gate thresholds
-src/steps.py              the five screens + sidebar
-src/prompts.py            reviewer instructions (Devil's Advocate)
-src/reviewer.py           builds what the AI sees, reads its JSON answer
-src/openrouter.py         OpenRouter API client
-src/files.py              file reading + evidence numbering
-src/gate.py               rules for "is another review useful?"
-src/record.py             review record: build, save, Markdown export
-src/state.py, util.py     session state, helpers
+reviewapp/config.py             settings, models, gate thresholds
+reviewapp/steps.py              the five screens + sidebar
+reviewapp/prompts.py            reviewer instructions (Devil's Advocate)
+reviewapp/reviewer.py           builds what the AI sees, reads its JSON answer
+reviewapp/openrouter.py         OpenRouter API client
+reviewapp/files.py              file reading + evidence numbering
+reviewapp/gate.py               rules for "is another review useful?"
+reviewapp/record.py             review record: build, save, Markdown export
+reviewapp/state.py, util.py     session state, helpers
 data/asterflow_sample.md  the AsterFlow file as text (for testing)
 tests/test_core.py        unit tests
+records/                  saved review records (created at runtime)
 PLAN.md                   app design and implementation plan
 ```

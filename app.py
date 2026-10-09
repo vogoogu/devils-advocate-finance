@@ -1,8 +1,14 @@
 import streamlit as st
 
-from src import config, state, steps
-
 st.set_page_config(page_title="Decision review tool", page_icon="🧭", layout="wide")
+
+try:
+    from reviewapp import config, state, steps
+except Exception as exc:  # show a readable error instead of a endless loading circle
+    st.error("The app could not start. Check that all files were uploaded to GitHub (folder `reviewapp` with its .py files, `data`, `requirements.txt`).")
+    st.exception(exc)
+    st.stop()
+
 state.init()
 
 st.title(config.APP_TITLE)
